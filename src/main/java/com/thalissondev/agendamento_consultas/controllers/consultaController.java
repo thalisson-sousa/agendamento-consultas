@@ -5,6 +5,8 @@ import com.thalissondev.agendamento_consultas.entities.Consulta;
 import com.thalissondev.agendamento_consultas.services.consultaService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -20,8 +22,8 @@ public class consultaController {
 
     @Transactional
     @GetMapping
-    public ResponseEntity<List<consultaDTO>> getMedicos() {
-        return ResponseEntity.ok().body(this.service.getConsultas());
+    public ResponseEntity<Page<consultaDTO>> getMedicos(Pageable pageable) {
+        return ResponseEntity.ok().body(this.service.getConsultas(pageable));
     }
 
     @Transactional

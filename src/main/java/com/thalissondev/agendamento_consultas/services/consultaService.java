@@ -5,6 +5,8 @@ import com.thalissondev.agendamento_consultas.entities.Consulta;
 import com.thalissondev.agendamento_consultas.repositories.consultaRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -19,8 +21,8 @@ public class consultaService {
     private consultaRepository repository;
 
     @Transactional
-    public List<consultaDTO> getConsultas() {
-        List<consultaDTO> consultas = this.repository.findAll().stream().map(x -> new consultaDTO(x)).toList();
+    public Page<consultaDTO> getConsultas(Pageable pageable) {
+        Page<consultaDTO> consultas = this.repository.findAll(pageable).map(x -> new consultaDTO(x));
         return consultas;
     }
 

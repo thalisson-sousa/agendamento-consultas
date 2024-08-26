@@ -5,9 +5,10 @@ import com.thalissondev.agendamento_consultas.entities.Especialidade;
 import com.thalissondev.agendamento_consultas.repositories.especialidadeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class especialidadeService {
@@ -15,8 +16,8 @@ public class especialidadeService {
     private especialidadeRepository repository;
 
     @Transactional
-    public List<especialidadeDTO> getEspecialidades() {
-        List<especialidadeDTO> pacientes = this.repository.findAll().stream().map(x -> new especialidadeDTO(x)).toList();
+    public Page<especialidadeDTO> getEspecialidades(Pageable pageable) {
+        Page<especialidadeDTO> pacientes = this.repository.findAll(pageable).map(x -> new especialidadeDTO(x));
         return pacientes;
     }
 

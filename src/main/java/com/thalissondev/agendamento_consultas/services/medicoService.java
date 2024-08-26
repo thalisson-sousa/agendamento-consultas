@@ -5,9 +5,9 @@ import com.thalissondev.agendamento_consultas.entities.Medico;
 import com.thalissondev.agendamento_consultas.repositories.medicoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class medicoService {
@@ -15,8 +15,8 @@ public class medicoService {
     private medicoRepository repository;
 
     @Transactional
-    public List<medicoDTO> getMedicos() {
-        List<medicoDTO> medicos = this.repository.findAll().stream().map(x -> new medicoDTO(x)).toList();
+    public Page<medicoDTO> getMedicos(Pageable pageable) {
+        Page<medicoDTO> medicos = this.repository.findAll(pageable).map(x -> new medicoDTO(x));
         return medicos;
     }
 

@@ -4,6 +4,8 @@ import com.thalissondev.agendamento_consultas.dto.pacienteDTO;
 import com.thalissondev.agendamento_consultas.entities.Paciente;
 import com.thalissondev.agendamento_consultas.services.pacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -19,8 +21,8 @@ public class pacienteController {
     private pacienteService service;
 
     @GetMapping
-    public ResponseEntity<List<pacienteDTO>> getPacientes() {
-        return ResponseEntity.ok().body(this.service.getPacientes());
+    public ResponseEntity<Page<pacienteDTO>> getPacientes(Pageable pageable) {
+        return ResponseEntity.ok().body(this.service.getPacientes(pageable));
     }
 
     @GetMapping(value = "/{id}")

@@ -4,6 +4,8 @@ import com.thalissondev.agendamento_consultas.dto.especialidadeDTO;
 import com.thalissondev.agendamento_consultas.entities.Especialidade;
 import com.thalissondev.agendamento_consultas.services.especialidadeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -19,8 +21,8 @@ public class especialidadeController {
     private especialidadeService service;
 
     @GetMapping
-    public ResponseEntity<List<especialidadeDTO>> getPacientes() {
-        return ResponseEntity.ok().body(this.service.getEspecialidades());
+    public ResponseEntity<Page<especialidadeDTO>> getPacientes(Pageable pageable) {
+        return ResponseEntity.ok().body(this.service.getEspecialidades(pageable));
     }
 
     @GetMapping(value = "/{id}")
